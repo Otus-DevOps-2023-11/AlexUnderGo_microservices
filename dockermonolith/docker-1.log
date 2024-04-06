@@ -1,0 +1,9 @@
+REPOSITORY             TAG       IMAGE ID       CREATED         SIZE
+alex/ubuntu-tmp-file   latest    1bd0e178e9c8   4 minutes ago   203MB
+ubuntu                 latest    ca2b0f26964c   5 weeks ago     77.9MB
+nginx                  latest    92b11f67642b   7 weeks ago     187MB
+ubuntu                 18.04     f9a80a55f492   10 months ago   63.2MB
+hello-world            latest    d2c94e258dcb   11 months ago   13.3kB
+
+На основе вывода команд "$ docker inspect <u_container_id> и $ docker inspect <u_image_id>" объясните чем отличается контейнер от
+образа - Образ это как установочный диск системы, а контейнер это развернутая с этого образа система.
