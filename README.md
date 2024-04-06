@@ -1,6 +1,6 @@
 # AlexUnderGo_microservices
 AlexUnderGo microservices repository
-#Дщмашнее задание №13
+#Дoмашнее задание №13
 Установка Docker и зависимостей
 Протестированы типовые команды Docker
 Вывод docker images в файл docker-1.log
