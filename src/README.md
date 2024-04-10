@@ -6,5 +6,3 @@
 - По умолчанию мы получаем имя из названия каталога в котором запущен docker-compose
 
 - В команде при запуске: docker compose -p "NAME" up -d
-
-*Создан docker-compose.override.yml для reddit проекта
