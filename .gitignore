@@ -1,1 +1,9 @@
 .env
+/home/alex/otus/AlexUnderGo_infra/packer/variables.json
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+*.retry
+meta.txt

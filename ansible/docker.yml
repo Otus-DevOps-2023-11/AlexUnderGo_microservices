@@ -1,0 +1,86 @@
+---
+- name: Install Docker
+  hosts: all
+  become: true
+  vars:
+    user_name: ubuntu
+  tasks:
+    - name: Install required system packages
+      apt:
+        name:  ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3', 'python3-pip', 'virtualenv', 'python3-setuptools']
+        state: latest
+        update_cache: yes
+
+    - name: Install docker for compose
+      pip:
+        # name: docker
+        # version: 6.1.3
+        # state: present
+        name: "{{ item.name }}"
+        version: "{{ item.version }}"
+        state: present
+      loop:
+        - { name: 'docker', version: '6.1.3' }
+        - { name: 'docker-compose', version: '1.29.2' }
+
+    - name: install docker for Gitlab server
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: ansible create directory with_items
+      file:
+        path: "{{ item.dest }}"
+        mode: 0644
+        owner: "ubuntu"
+        group: "ubuntu"
+        state: directory
+      loop:
+        - { dest: '/srv/gitlab/config' }
+        - { dest: '/srv/gitlab/data' }
+        - { dest: '/srv/gitlab/logs' }
+
+    # - name: "Run a shell command on a remote host"
+    #   shell: mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
+    #   #&& touch /srv/gitlab/docker-compose.yml
+    #   changed_when: False
+
+    - name: "Get IP"
+      shell: wget -qO- eth0.me
+      register: external_ip
+      # register: shell_output
+
+    # - name: "Set variables"
+    #   set_fact:
+    #     external_ip: "{{ shell_output.stdout }}"
+
+    # - name: "Use Ex_IP"
+    #   debug:
+    #     msg: "The ex_ip '{{ external_ip }}'"
+
+    - name: Change docker-compose-gitlab config file
+      template:
+        src: ./docker-compose.yml.j2
+        dest: /srv/gitlab/docker-compose.yml
+        mode: 0644
+
+    # - name: "Run compose"
+    #   shell: /srv/gitlab/docker-compose up -d
+
+    - name: deploy Docker Compose stack
+      community.docker.docker_compose:
+        project_src: /srv/gitlab/
+        files:
+        - docker-compose.yml
