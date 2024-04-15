@@ -1,0 +1,2 @@
+[ansible_host]
+vm-gitlab ansible_host=51.250.67.210

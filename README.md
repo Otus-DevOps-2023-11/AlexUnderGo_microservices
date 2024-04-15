@@ -21,3 +21,9 @@ AlexUnderGo microservices repository
 Добавил в README.md проекта описание как формируется имя
 
 *Создан docker-compose.override.yml для reddit проекта
+
+#Домашнее задание №16
+Настроено автоматическое создание виртуальной машины для сервера gitlab с помощью terraform (terrafor/main.tf)
+Сделан пункт 2.7* Автоматизация развёртывания GitLab
+Развертывание сервера gitlab с помощью ansible/docker.yml со всеми зависимостями.
+Проведено тестирование с помощью gitlab.
