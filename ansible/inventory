@@ -1,2 +1,4 @@
-vm-gitlab ansible_host=51.250.11.28
+[ansible_host]
+#inventory = ./dinventory.py
+vm-gitlab ansible_host=51.250.67.210
 #ansible_privet_key_file=~/.ssh/ubuntu

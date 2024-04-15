@@ -5,8 +5,8 @@ web:
   environment:
     GITLAB_OMNIBUS_CONFIG: |
       external_url 'http://{{ external_ip.stdout }}'
-    GITLAB_ROOT_EMAIL: 'root'
-    GITLAB_ROOT_PASSWORD: '12345678'
+    #GITLAB_ROOT_EMAIL: 'root@local'
+    #GITLAB_ROOT_PASSWORD: '12345678'
   ports:
     - '80:80'
     - '443:443'
