@@ -27,3 +27,10 @@ AlexUnderGo microservices repository
 Сделан пункт 2.7* Автоматизация развёртывания GitLab
 Развертывание сервера gitlab с помощью ansible/docker.yml со всеми зависимостями.
 Проведено тестирование с помощью gitlab.
+
+#Домашнее задание №17
+Запустил prometheus и ознакомился с функционалом
+Собрал свой образ prometheus, добавив в контейнер конфиг prometheus.yml
+Добавил сборщик метрик и сам prometheus в docker-compose.yml
+Ознакомился с метриками, провел тестирование
+repo:https://hub.docker.com/repositories/alexundergo
