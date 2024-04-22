@@ -6,22 +6,44 @@ services:
       - post_db:/data/db
     networks:
       - back_net
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+
   ui:
     image: ${UNAME}/ui:${UIVERSION}
     ports:
       - ${INPORT}:${EXPORT}/tcp
     networks:
       - front_net
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
+
   post:
-    image: ${UNAME}/post:1.0
+    image: ${UNAME}/post:${POSTVERSION}
     networks:
       - front_net
       - back_net
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
+
   comment:
-    image: ${UNAME}/comment:1.0
+    image: ${UNAME}/comment:${COMMENTVERSION}
     networks:
       - front_net
       - back_net
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+
   prometheus:
     image: ${UNAME}/prometheus
     ports:
@@ -35,6 +57,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention=1d' # Задаем время хранения метрик в 1 день
+
   node-exporter:
     image: prom/node-exporter:v1.1.1
     user: root
