@@ -34,3 +34,26 @@ AlexUnderGo microservices repository
 Добавил сборщик метрик и сам prometheus в docker-compose.yml
 Ознакомился с метриками, провел тестирование
 repo:https://hub.docker.com/repositories/alexundergo
+
+#Домашнее задание №18
+Установил k8s с помощью terraform и ansible
+По пунктам:
+ - Из папки /kubernetes/terraform выполняем terraform apply (разворачиваем 2 виртуалки).
+ - Из папки /kubernetes/ansible выполняем ansible-playbook kuberinstall-compose.yml (в составе 2 ямла с установкой и частичной настройкой всех компонентов).
+ - Заходим по ssh на виртуалку
+ - Инициализируем kubeadm(подставляя свои адреса) sudo kubeadm init --apiserver-cert-extra-sans=10.128.0.28 --apiserver-advertise-address=0.0.0.0 --control-plane-endpoint=10.128.0.28 --pod-network-cidr=10.128.0.0/16 (инитил по внутренним адресам)
+ - Выполняем рекомендуемы команды кубреа после :
+ mkdir -p $HOME/.kube
+ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+ export KUBECONFIG=/etc/kubernetes/admin.conf
+ sudo chown 660 /etc/kubernetes/admin.conf
+ sudo reboot
+ - Устанавливаем Calico :
+ curl https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico.yaml -O
+ nano calico.yaml - change CIDR
+ kubectl apply -f calico.yaml
+ - Добавляем ноду в кластер:
+ Заходим по ssh
+ Выполняем sudo kubeadm join 10.128.0.28:6443 --token "token" \
+ --discovery-token-ca-cert-hash sha256:"sha256"
