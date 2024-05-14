@@ -35,7 +35,7 @@ AlexUnderGo microservices repository
 Ознакомился с метриками, провел тестирование
 repo:https://hub.docker.com/repositories/alexundergo
 
-#Домашнее задание №18
+#Домашнее задание №19
 Установил k8s с помощью terraform и ansible
 По пунктам:
  - Из папки /kubernetes/terraform выполняем terraform apply (разворачиваем 2 виртуалки).
