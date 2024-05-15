@@ -1,0 +1,62 @@
+---
+- name: Install Kubeadm and Kubelet
+  hosts: all
+  become: true
+  vars:
+    user_name: ubuntu
+  tasks:
+  - name: Check if directory exists
+    stat:
+      path: /etc/apt/keyrings
+    register: key_dir
+
+  - name: Create keyrings directory if it doesn't exists
+    file:
+      path: /etc/apt/keyrings
+      state: directory
+    when: not key_dir.stat.exists
+
+  #Вариант1 проверки наличия ключа и скачивания его(работает)
+  - name: Add key-file if it doesn't exists
+    shell: test -f /etc/apt/keyrings/kubernetes-apt-keyring.gpg ||curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+  #Вариант2 проверки наличия ключа и скачивания его(работает)
+  # - name: Check if key-file exists
+  #   stat:
+  #     path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  #   register: key_file
+
+  # - name: Add key-file if it doesn't exists
+  #   shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  #   when: not key_file.stat.exists
+
+  - name: Add APT repository
+    apt_repository:
+      repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
+      state: present
+  # - name: Add repository
+  #   shell: echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+  - name: Install required system packages & update system
+    apt:
+      name:  ['apt-transport-https', 'ca-certificates', 'curl', 'gpg', 'containerd']
+      state: latest
+      update_cache: yes
+      # upgrade: yes
+
+  - name: Install Kubeadm and Kubelet
+    apt:
+      name:  ['kubelet', 'kubeadm']
+      state: present
+      update_cache: no
+
+  - name: Enable kubelet service
+    service:
+      name: kubelet
+      enabled: true
+
+# handlers:
+#   - name: start kubelet
+#     service:
+#       name: kubelet
+#       state: started

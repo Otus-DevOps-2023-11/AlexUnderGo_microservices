@@ -1,0 +1,3 @@
+---
+- import_playbook: kubeadm-compose.yml
+- import_playbook: kubectl-compose.yml
