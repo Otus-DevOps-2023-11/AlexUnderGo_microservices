@@ -8,3 +8,4 @@
 *.retry
 meta.txt
 admin.kubeconfig
+kube-proxy.kubeconfig
