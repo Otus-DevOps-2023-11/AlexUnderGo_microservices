@@ -25,9 +25,9 @@ spec:
       - image: mongo:latest
         name: mongo
         volumeMounts:
-        - name: smongo-gce-pd-storage
+        - name: mongo-persistent-storage
           mountPath: /data/db
       volumes:
-      - name: smongo-gce-pd-storage
+      - name: mongo-gce-pd-storage
         persistentVolumeClaim:
           claimName: mongo-pvc
