@@ -20,6 +20,8 @@ spec:
       labels:
         app: reddit
         component: mongo
+        comment-db: "true"
+        post-db: "true"
     spec:
       containers:
       - image: mongo:latest
@@ -28,6 +30,6 @@ spec:
         - name: mongo-persistent-storage
           mountPath: /data/db
       volumes:
-      - name: mongo-gce-pd-storage
+      - name: mongo-persistent-storage
         persistentVolumeClaim:
           claimName: mongo-pvc
