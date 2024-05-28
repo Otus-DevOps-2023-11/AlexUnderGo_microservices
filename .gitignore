@@ -10,3 +10,5 @@ meta.txt
 admin.kubeconfig
 kube-proxy.kubeconfig
 secret.yaml
+tls.key
+tls.crt
