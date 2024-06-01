@@ -1,0 +1,20 @@
+comment:
+  image:
+    repository: cr.yandex/crpl9qbn9ft6lv91f78e/comment
+    tag: latest
+  service:
+    externalPort: 9292
+
+post:
+  image:
+    repository: cr.yandex/crpl9qbn9ft6lv91f78e/post
+    tag: 1.0
+  service:
+    externalPort: 5000
+
+ui:
+  image:
+    repository: cr.yandex/crpl9qbn9ft6lv91f78e/ui
+    tag: latest
+  service:
+    externalPort: 9292
