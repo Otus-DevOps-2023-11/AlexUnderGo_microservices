@@ -57,3 +57,10 @@ repo:https://hub.docker.com/repositories/alexundergo
  Заходим по ssh
  Выполняем sudo kubeadm join 10.128.0.28:6443 --token "token" \
  --discovery-token-ca-cert-hash sha256:"sha256"
+
+#Домашнее задание №20
+
+#Домашнее задание №21
+Развернуты чарты
+Развернут гиталб
+Пришлось перетащить образы в Яндекс хранилище, поэтому пути такие странные.
