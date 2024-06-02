@@ -1,0 +1,10 @@
+---
+service:
+  internalPort: 9292
+  externalPort: 9292
+
+image:
+  repository: cr.yandex/crpl9qbn9ft6lv91f78e/comment
+  tag: latest
+
+databaseHost:
